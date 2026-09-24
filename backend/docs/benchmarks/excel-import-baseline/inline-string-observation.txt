@@ -1,0 +1,21 @@
+Date: 2026-09-24
+Apache POI: 5.2.5
+Application source: 2799a43dd1ff3bf0803b9c2095cec47a87079277
+
+Input generation: new SXSSFWorkbook(100), create one sheet, write keys as string cells.
+The default SXSSF writer uses inline strings. The first key was "00000".
+Read that file using XSSFWorkbook, then call the existing importer's cell.setCellType(CellType.STRING).
+
+Observed on the first cell:
+BEFORE type=STRING value=[00000]
+AFTER type=STRING value=[]
+
+Initial 10,000-row warmup: readRows=10000, validKeys=0, skippedRows=10000.
+The harness rejected this run because the stored count did not equal the input count.
+This run was excluded from all baseline timing statistics.
+
+The accepted baseline instead used new SXSSFWorkbook(null, 100, true, true), enabling shared strings.
+This matches the XSSFWorkbook-generated inputs in the existing API tests.
+All accepted measurements checked stored row count, distinct key count, and null level values.
+
+No change was made to the application parser. This is a separate input-format issue to investigate.

@@ -1,0 +1,2 @@
+phase,round,rows,file_bytes,parse_ms,save_flush_ms,total_commit_ms,commit_ms,jdbc_insert_prepare_calls,jdbc_insert_execute_calls,jdbc_add_batch_calls,jdbc_execute_batch_calls,mysql_insert_statements,stored_rows,distinct_keys,transaction_commits,gc_collections,gc_ms
+diagnostic,1,1000,13457,77,361,463.977,4.307,1000,1000,0,0,1000,1000,1000,1,0,0

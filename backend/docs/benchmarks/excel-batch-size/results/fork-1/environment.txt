@@ -1,0 +1,35 @@
+java=17.0.20+0
+os=Mac OS X 26.6.2 aarch64
+jvm_arguments=[-Xms512m, -Xmx1024m, -Dbatch.sizes=100,500,1000,2000,5000]
+fork=1
+hibernate=6.6.13.Final
+spring=6.2.6
+spring_data_jpa=3.4.5
+poi=5.2.5
+jdbc_url=jdbc:mysql://127.0.0.1:13319/passtival_excel_batch_size?sslMode=DISABLED&useServerPrepStmts=false&rewriteBatchedStatements=true
+batch_sizes=[100, 500, 1000, 2000, 5000]
+sizes=[10000, 100000]
+warmups=2 x 100000 per candidate per JVM; measured_rounds=10
+concurrent_imports=1; hikari_maximum=2; hikari_minimum_idle=1; transaction=one per file
+primary_metric=JdbcTemplate.batchUpdate wall time + Connection.commit wall time
+heap_sampling_interval_ms=10; heap_is_whole_jvm=true; explicit_gc=false
+allocation=main thread cumulative allocated bytes (not retained memory)
+correctness=exact keys, null level, positive DB IDs; partial tail=1 row; second batch fails
+mysql=8.0.46
+driver=mysql-connector-j-9.1.0 (Revision: cf2917ea44ae2e43a4514a33771035aa99de73bf)
+character_set_server=utf8mb4
+collation_server=utf8mb4_0900_ai_ci
+innodb_buffer_pool_size=134217728
+innodb_flush_log_at_trx_commit=1
+innodb_redo_log_capacity=67108864
+log_bin=OFF
+max_allowed_packet=67108864
+performance_schema=ON
+sql_mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+transaction_isolation=REPEATABLE-READ
+schema=CREATE TABLE `authentication_key` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `authentication_key` varchar(5) NOT NULL,
+  `level` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

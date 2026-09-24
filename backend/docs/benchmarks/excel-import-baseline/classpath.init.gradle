@@ -1,0 +1,14 @@
+allprojects {
+    plugins.withId('java') {
+        tasks.register('exportExcelBaselineClasspath') {
+            dependsOn tasks.named('testClasses')
+            doLast {
+                def outputPath = System.getProperty('excel.baseline.classpathFile')
+                if (!outputPath) {
+                    throw new GradleException('Set -Dexcel.baseline.classpathFile to the output file path')
+                }
+                new File(outputPath).text = sourceSets.test.runtimeClasspath.asPath
+            }
+        }
+    }
+}
