@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.passtival.backend.domain.authenticationkey.model.AuthenticationKey;
-import com.passtival.backend.domain.authenticationkey.repository.AuthenticationKeyRepository;
+import com.passtival.backend.domain.authenticationkey.repository.AuthenticationKeyJdbcRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AuthenticationKeyImportService {
 
-  private final AuthenticationKeyRepository authenticationKeyRepository;
+  private final AuthenticationKeyJdbcRepository authenticationKeyJdbcRepository;
 
   /**
    * 업로드한 엑셀의 첫 시트 A열을 읽습니다. requestedRows가 없으면 전체 행을 처리합니다.
@@ -76,10 +76,9 @@ public class AuthenticationKeyImportService {
           readRows, entities.size(), readRows - entities.size(), parseElapsedMs);
 
       long saveStartNanos = System.nanoTime();
-      authenticationKeyRepository.saveAll(entities); // 전체 저장
-      authenticationKeyRepository.flush();
+      authenticationKeyJdbcRepository.insertAll(entities);
       long saveElapsedMs = elapsedMillis(saveStartNanos);
-      log.info("인증키 DB 저장 및 flush 완료 - insertCount: {}, saveElapsedMs: {}",
+      log.info("인증키 DB 배치 저장 완료 - insertCount: {}, saveElapsedMs: {}",
           entities.size(), saveElapsedMs);
 
       return new ImportSummary(readRows, entities.size(), parseElapsedMs, saveElapsedMs);
