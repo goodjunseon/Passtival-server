@@ -14,6 +14,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.passtival.backend.global.common.BaseResponse;
@@ -61,6 +63,8 @@ public class GlobalExceptionHandler {
 		HttpMessageNotReadableException.class,
 		MethodArgumentTypeMismatchException.class,
 		MissingServletRequestParameterException.class,
+		MissingServletRequestPartException.class,
+		MaxUploadSizeExceededException.class,
 		ConstraintViolationException.class,
 		TypeMismatchException.class,
 		BindException.class
