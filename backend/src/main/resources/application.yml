@@ -100,9 +100,6 @@ admin:
 
 MATCHING_BLOCK: ${MATCHING_BLOCK}
 
-seed:
-  auth-keys-path: ${SEED_AUTH_KEYS_PATH}
-
 frontend:
   login-url: ${FRONTEND_LOGIN_URL}
   login-fail-url: ${FRONTEND_LOGIN_FAIL_URL}
