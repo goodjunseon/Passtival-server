@@ -7,6 +7,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    hikari:
+      data-source-properties:
+        rewriteBatchedStatements: true
   security:
     oauth2:
       client:

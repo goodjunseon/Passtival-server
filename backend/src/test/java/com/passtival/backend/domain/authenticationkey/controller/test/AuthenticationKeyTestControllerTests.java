@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.apache.poi.ss.usermodel.Sheet;
@@ -27,6 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.passtival.backend.domain.authenticationkey.model.AuthenticationKey;
+import com.passtival.backend.domain.authenticationkey.repository.AuthenticationKeyJdbcRepository;
 import com.passtival.backend.domain.authenticationkey.repository.AuthenticationKeyRepository;
 import com.passtival.backend.domain.authenticationkey.service.AuthenticationKeyImportService;
 import com.passtival.backend.global.discord.DiscordService;
@@ -39,14 +41,16 @@ class AuthenticationKeyTestControllerTests {
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
   private AuthenticationKeyRepository repository;
+  private AuthenticationKeyJdbcRepository jdbcRepository;
   private DiscordService discordService;
   private MockMvc mockMvc;
 
   @BeforeEach
   void setUp() {
     repository = mock(AuthenticationKeyRepository.class);
+    jdbcRepository = mock(AuthenticationKeyJdbcRepository.class);
     discordService = mock(DiscordService.class);
-    AuthenticationKeyImportService service = new AuthenticationKeyImportService(repository);
+    AuthenticationKeyImportService service = new AuthenticationKeyImportService(jdbcRepository);
     mockMvc = MockMvcBuilders.standaloneSetup(
             new AuthenticationKeyTestController(service, repository))
         .setControllerAdvice(new GlobalExceptionHandler(discordService))
@@ -78,7 +82,7 @@ class AuthenticationKeyTestControllerTests {
 
     assertThat(savedKeys()).extracting(AuthenticationKey::getAuthenticationKey)
         .containsExactly("00123", "ABCDE");
-    verify(repository).flush();
+    verifyNoInteractions(repository);
   }
 
   @Test
@@ -136,7 +140,7 @@ class AuthenticationKeyTestControllerTests {
         .andExpect(jsonPath("$.isSuccess").value(false))
         .andExpect(jsonPath("$.code").value(400));
 
-    verifyNoInteractions(repository, discordService);
+    verifyNoInteractions(repository, jdbcRepository, discordService);
   }
 
   @Test
@@ -145,7 +149,7 @@ class AuthenticationKeyTestControllerTests {
         .andExpect(jsonPath("$.isSuccess").value(false))
         .andExpect(jsonPath("$.code").value(400));
 
-    verifyNoInteractions(repository, discordService);
+    verifyNoInteractions(repository, jdbcRepository, discordService);
   }
 
   @Test
@@ -155,7 +159,7 @@ class AuthenticationKeyTestControllerTests {
         .andExpect(jsonPath("$.isSuccess").value(false))
         .andExpect(jsonPath("$.code").value(400));
 
-    verifyNoInteractions(repository, discordService);
+    verifyNoInteractions(repository, jdbcRepository, discordService);
   }
 
   @Test
@@ -166,7 +170,7 @@ class AuthenticationKeyTestControllerTests {
         .andExpect(jsonPath("$.isSuccess").value(false))
         .andExpect(jsonPath("$.code").value(400));
 
-    verifyNoInteractions(repository, discordService);
+    verifyNoInteractions(repository, jdbcRepository, discordService);
   }
 
   @Test
@@ -176,23 +180,23 @@ class AuthenticationKeyTestControllerTests {
         .andExpect(jsonPath("$.isSuccess").value(false))
         .andExpect(jsonPath("$.code").value(400));
 
-    verifyNoInteractions(repository, discordService);
+    verifyNoInteractions(repository, jdbcRepository, discordService);
   }
 
   @Test
   void reportsDatabaseFailureInsteadOfSuccessfulImport() throws Exception {
-    doThrow(new DataIntegrityViolationException("insert failed")).when(repository)
-        .saveAll(anyList());
+    doThrow(new DataIntegrityViolationException("insert failed")).when(jdbcRepository)
+        .insertAll(anyList());
 
     mockMvc.perform(multipart(IMPORT_URL).file(keys("12345")))
         .andExpect(jsonPath("$.isSuccess").value(false))
         .andExpect(jsonPath("$.code").value(500));
   }
 
-  private Iterable<AuthenticationKey> savedKeys() {
+  private List<AuthenticationKey> savedKeys() {
     @SuppressWarnings("unchecked")
-    ArgumentCaptor<Iterable<AuthenticationKey>> captor = ArgumentCaptor.forClass(Iterable.class);
-    verify(repository).saveAll(captor.capture());
+    ArgumentCaptor<List<AuthenticationKey>> captor = ArgumentCaptor.forClass(List.class);
+    verify(jdbcRepository).insertAll(captor.capture());
     return captor.getValue();
   }
 

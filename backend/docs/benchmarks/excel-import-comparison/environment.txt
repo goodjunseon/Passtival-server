@@ -1,0 +1,33 @@
+java=17.0.20+0
+os=Mac OS X 26.6.2 aarch64
+jvm_arguments=[-Xms512m, -Xmx1024m]
+hibernate=6.6.13.Final
+spring=6.2.6
+spring_data_jpa=3.4.5
+apache_poi=5.2.5
+jdbc_url_A_B_C=jdbc:mysql://127.0.0.1:13318/passtival_excel_comparison?sslMode=DISABLED&useServerPrepStmts=false&rewriteBatchedStatements=false
+jdbc_url_D=jdbc:mysql://127.0.0.1:13318/passtival_excel_comparison?sslMode=DISABLED&useServerPrepStmts=false&rewriteBatchedStatements=true
+hibernate.jdbc.batch_size=0; jdbc_batch_size=1000
+pools=2 (rewrite=false/true); each_pool_maximum=2; each_pool_minimum_idle=1
+concurrent_imports=1; transaction_manager=JpaTransactionManager (all variants)
+warmups=2 x 10000 per variant; repetitions=5
+sizes=1000,10000,50000,100000; rotate_size_and_variant_order=true
+correctness=exact ordered keys, null levels, positive DB IDs, commit=1; outside timer
+rollback=2501 rows; reject 01500 via temporary CHECK; preserve ZZZZZ/7/id=1
+mysql=8.0.46
+driver=mysql-connector-j-9.1.0 (Revision: cf2917ea44ae2e43a4514a33771035aa99de73bf)
+character_set_server=utf8mb4
+collation_server=utf8mb4_0900_ai_ci
+innodb_buffer_pool_size=134217728
+innodb_flush_log_at_trx_commit=1
+log_bin=OFF
+max_allowed_packet=67108864
+performance_schema=ON
+sql_mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+transaction_isolation=REPEATABLE-READ
+schema=CREATE TABLE `authentication_key` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `authentication_key` varchar(5) NOT NULL,
+  `level` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

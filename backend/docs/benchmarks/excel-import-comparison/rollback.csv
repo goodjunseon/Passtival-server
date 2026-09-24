@@ -1,0 +1,5 @@
+variant,input_rows,rejected_key,successful_single_inserts,successful_batches,execute_batch_attempts,commits,rollbacks,remaining_rows,mysql_error_code,sentinel_preserved
+JPA,2501,01500,1500,0,0,0,1,1,3819,true
+JDBC_SINGLE,2501,01500,1500,0,0,0,1,1,3819,true
+JDBC_BATCH,2501,01500,0,1,2,0,1,1,3819,true
+JDBC_BATCH_REWRITE,2501,01500,0,1,2,0,1,1,3819,true

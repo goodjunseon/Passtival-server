@@ -1,0 +1,29 @@
+java=17.0.20+0
+os=Mac OS X 26.6.2 aarch64
+jvm_arguments=[-Xms512m, -Xmx1024m, -Dbaseline.diagnostic=true, -Dbaseline.hibernateBatchSize=50]
+hibernate=6.6.13.Final
+spring_data_jpa=3.4.5
+apache_poi=5.2.5
+jdbc_url=jdbc:mysql://127.0.0.1:13317/passtival_excel_baseline?sslMode=DISABLED&useServerPrepStmts=false&rewriteBatchedStatements=false
+hibernate.jdbc.batch_size=50
+hikari_maximum_pool_size=2; hikari_minimum_idle=1; concurrent_imports=1
+warmups=0 (execution-count probe only); measured_repetitions=1
+measured_sizes=[1000]
+mysql=8.0.46
+driver=mysql-connector-j-9.1.0 (Revision: cf2917ea44ae2e43a4514a33771035aa99de73bf)
+character_set_server=utf8mb4
+collation_server=utf8mb4_0900_ai_ci
+innodb_buffer_pool_size=134217728
+innodb_flush_log_at_trx_commit=1
+log_bin=OFF
+max_allowed_packet=67108864
+performance_schema=ON
+sql_mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+transaction_isolation=REPEATABLE-READ
+schema=CREATE TABLE `authentication_key` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `authentication_key` varchar(5) NOT NULL,
+  `level` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+file_bytes_1000=13457

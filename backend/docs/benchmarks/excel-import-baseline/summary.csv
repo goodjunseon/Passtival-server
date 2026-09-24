@@ -1,0 +1,5 @@
+rows,samples,parse_median_ms,save_flush_median_ms,total_median_ms,total_min_ms,total_max_ms,save_share_median_pct,throughput_median_rows_per_sec
+1000,5,6.0,45.0,56.384,42.142,65.694,79.71,17736
+10000,5,43.0,333.0,401.238,394.611,533.907,82.49,24923
+50000,5,194.0,1681.0,1995.097,1938.839,2479.736,84.07,25061
+100000,5,403.0,3355.0,3979.255,3943.291,4337.939,84.14,25130

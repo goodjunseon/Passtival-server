@@ -1,0 +1,5 @@
+variant,input_rows,stored_rows,execute_batch_calls,commits,exact_values
+JPA,2501,2501,0,1,true
+JDBC_SINGLE,2501,2501,0,1,true
+JDBC_BATCH,2501,2501,3,1,true
+JDBC_BATCH_REWRITE,2501,2501,3,1,true

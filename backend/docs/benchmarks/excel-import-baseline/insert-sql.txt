@@ -1,0 +1,1 @@
+insert into authentication_key (authentication_key,level) values (?,?)

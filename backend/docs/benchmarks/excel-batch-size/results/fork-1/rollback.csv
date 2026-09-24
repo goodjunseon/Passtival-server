@@ -1,0 +1,6 @@
+fork,batch_size,input_rows,rejected_key,successful_batches,execute_batch_attempts,commits,rollbacks,remaining_rows,mysql_error_code,sentinel_preserved
+1,100,201,00150,1,2,0,1,1,3819,true
+1,500,1001,00750,1,2,0,1,1,3819,true
+1,1000,2001,01500,1,2,0,1,1,3819,true
+1,2000,4001,03000,1,2,0,1,1,3819,true
+1,5000,10001,07500,1,2,0,1,1,3819,true
