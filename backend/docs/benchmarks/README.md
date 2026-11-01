@@ -22,7 +22,7 @@ JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home \
   bash backend/docs/benchmarks/excel-batch-size/run.sh
 ```
 
-JPA 기준선의 수동 실행 명령도 위 checkout의 `backend` 디렉터리에서 실행한다.
+JPA 기준선은 [당시 보고서의 실행 명령](https://github.com/goodjunseon/Passtival-server/blob/789228af5267ce8d32c84024b2eb2104029cfce1/backend/docs/excel-import-baseline.md)을 참고해 위 checkout의 `backend` 디렉터리에서 실행한다.
 집계 스크립트는 애플리케이션 소스와 무관하므로 현재 checkout의 보존된 CSV에 직접 실행해도 된다.
 `harness-sha256.txt`에 남은 절대 경로는 최초 실행 당시 위치이며, 다른 위치에서 파일을 확인할 때는 파일명별 SHA-256 값을 비교한다.
 
